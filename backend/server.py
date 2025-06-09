@@ -109,9 +109,14 @@ def scan_reports_directory() -> Dict[str, List[PDFInfo]]:
 
 def filter_pdfs_by_date(pdfs: List[PDFInfo], target_datetime: datetime) -> List[PDFInfo]:
     """Filter PDFs based on target datetime"""
+    # Ensure both datetimes are naive for comparison
+    # Convert target_datetime to naive if it's aware
+    if target_datetime.tzinfo is not None:
+        target_datetime = target_datetime.replace(tzinfo=None)
+    
     return [
         pdf for pdf in pdfs 
-        if pdf.modified_date <= target_datetime
+        if pdf.modified_date.replace(tzinfo=None) <= target_datetime
     ]
 
 def search_pdfs(pdfs: List[PDFInfo], search_term: str) -> List[SearchResult]:
