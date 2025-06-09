@@ -68,3 +68,6 @@ __pycache__/
 
 # Android SDK
 android-sdk/
+
+# Reports folder (contains PDFs that shouldn't be committed)
+reports/
