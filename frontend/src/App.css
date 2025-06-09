@@ -1,38 +1,192 @@
-.App {
-    text-align: center;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components'; 
+@import 'tailwindcss/utilities';
+
+/* Custom styles for PDF Reports Manager */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #f9fafb;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* Smooth transitions for interactive elements */
+button, input {
+  transition: all 0.2s ease-in-out;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Custom scrollbar for sidebar */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* PDF viewer iframe styling */
+iframe {
+  border: none;
+  background: white;
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Search results highlighting */
+.search-highlight {
+  background-color: #fef3c7;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .flex.gap-6 {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    gap: 1rem;
+  }
+  
+  .w-80 {
+    width: 100%;
+  }
+  
+  .h-\[calc\(100vh-140px\)\] {
+    height: auto;
+    min-height: 500px;
+  }
 }
 
-.App-link {
-    color: #61dafb;
+/* Focus states for accessibility */
+input:focus,
+button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Custom button styles */
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors;
+}
+
+.btn-secondary {
+  @apply bg-gray-100 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white rounded-lg shadow-sm border p-4;
+}
+
+.card-header {
+  @apply border-b pb-3 mb-4;
+}
+
+/* Status indicators */
+.status-indicator {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.status-success {
+  @apply bg-green-100 text-green-800;
+}
+
+.status-warning {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.status-error {
+  @apply bg-red-100 text-red-800;
+}
+
+/* PDF info display */
+.pdf-meta {
+  @apply text-sm text-gray-600 space-y-1;
+}
+
+.pdf-meta dt {
+  @apply font-medium text-gray-900;
+}
+
+.pdf-meta dd {
+  @apply text-gray-600;
+}
+
+/* Folder tabs styling */
+.folder-tab {
+  @apply block w-full text-left p-3 rounded-lg transition-all duration-200;
+}
+
+.folder-tab:hover {
+  @apply transform translate-x-1;
+}
+
+.folder-tab.active {
+  @apply bg-blue-100 text-blue-800 border border-blue-200 shadow-sm;
+}
+
+.folder-tab.inactive {
+  @apply bg-gray-50 hover:bg-gray-100 text-gray-700;
+}
+
+/* Search results styling */
+.search-result {
+  @apply border rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-pointer;
+}
+
+.search-result:hover {
+  @apply border-blue-200 bg-blue-50;
+}
+
+.search-match {
+  @apply text-sm text-gray-700 bg-yellow-100 px-1 rounded;
+}
+
+/* Error states */
+.error-message {
+  @apply text-red-600 bg-red-50 border border-red-200 rounded-lg p-4 text-center;
+}
+
+/* Loading states */
+.loading-spinner {
+  @apply animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600;
+}
+
+/* Date/time picker styling */
+input[type="datetime-local"] {
+  @apply px-3 py-2 border border-gray-300 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+/* Sidebar PDF list */
+.pdf-item {
+  @apply w-full text-left p-2 rounded text-sm transition-all duration-200 border;
+}
+
+.pdf-item:hover {
+  @apply transform translate-x-1;
+}
+
+.pdf-item.selected {
+  @apply bg-green-100 text-green-800 border-green-200 shadow-sm;
+}
+
+.pdf-item.unselected {
+  @apply bg-white hover:bg-gray-50 text-gray-700;
 }
