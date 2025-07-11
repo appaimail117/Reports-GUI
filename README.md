@@ -417,7 +417,15 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📝 Changelog
 
-### Version 1.1.0 (Latest)
+### Version 1.2.0 (Latest)
+- ✅ **Fixed**: Resolved KeyError for MONGO_URL and DB_NAME environment variables
+- ✅ **Improved**: Enhanced environment variable loading with fallback defaults
+- ✅ **Enhanced**: Better error handling for missing .env files
+- ✅ **Added**: Automatic reports directory creation if missing
+- ✅ **Improved**: MongoDB connection testing during startup
+- ✅ **Enhanced**: More detailed logging and error messages
+
+### Version 1.1.0
 - ✅ **Fixed**: Updated FastAPI to use modern lifespan event handlers instead of deprecated `on_event`
 - ✅ **Improved**: Better error handling and logging during startup/shutdown
 - ✅ **Enhanced**: More detailed Windows deployment documentation
