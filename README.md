@@ -35,6 +35,13 @@ Before you begin, ensure you have the following installed on your Windows PC:
    - Download from: https://www.mongodb.com/try/download/community
    - Or use MongoDB Atlas (cloud) for easier setup
 
+### Framework Versions Used
+
+- **FastAPI**: 0.110.1+ (uses modern lifespan event handlers)
+- **React**: 19.0+
+- **PyMuPDF**: 1.23.0+ (for PDF processing)
+- **Tailwind CSS**: 3.4.17+ (for styling)
+
 ### Verify Installation
 
 Open Command Prompt (cmd) or PowerShell and run:
