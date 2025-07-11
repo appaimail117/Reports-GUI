@@ -415,6 +415,20 @@ For issues or questions:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+## 📝 Changelog
+
+### Version 1.1.0 (Latest)
+- ✅ **Fixed**: Updated FastAPI to use modern lifespan event handlers instead of deprecated `on_event`
+- ✅ **Improved**: Better error handling and logging during startup/shutdown
+- ✅ **Enhanced**: More detailed Windows deployment documentation
+
+### Version 1.0.0 (Initial Release)
+- ✅ **Feature**: Complete PDF management system with folder organization
+- ✅ **Feature**: Advanced search functionality (filename + content)
+- ✅ **Feature**: Date/time filtering based on PDF metadata
+- ✅ **Feature**: Built-in PDF viewer with responsive design
+- ✅ **Feature**: Windows deployment scripts and documentation
+
 ---
 
 **Happy PDF Management! 🎉**
