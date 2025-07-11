@@ -278,6 +278,17 @@ npm install
 - Verify connection string in `.env` file
 - For Atlas: ensure IP whitelist includes your IP
 
+#### 5. Environment variable KeyError (MONGO_URL, DB_NAME)
+**Solution**: 
+- Ensure `.env` file exists in backend directory
+- Check `.env` file format:
+  ```env
+  MONGO_URL="mongodb://localhost:27017"
+  DB_NAME="pdf_reports_db"
+  ```
+- Restart backend server after changing .env file
+- If .env is missing, the app will use defaults but log warnings
+
 #### 5. PDFs not loading
 **Solution**:
 - Check file permissions on reports folder
