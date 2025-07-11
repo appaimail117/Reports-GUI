@@ -15,33 +15,91 @@ import json
 import re
 from contextlib import asynccontextmanager
 
+# Configure logging first
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# Load environment variables
+env_file = ROOT_DIR / '.env'
+if env_file.exists():
+    load_dotenv(env_file)
+    logger.info(f"Loaded environment variables from: {env_file}")
+else:
+    logger.warning(f"No .env file found at: {env_file}")
+    logger.info("Using default environment values")
+
+# MongoDB connection with error handling and defaults
+try:
+    mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+    db_name = os.environ.get('DB_NAME', 'pdf_reports_db')
+    
+    logger.info(f"MongoDB URL: {mongo_url}")
+    logger.info(f"Database name: {db_name}")
+    
+    client = AsyncIOMotorClient(mongo_url)
+    db = client[db_name]
+    
+    logger.info("MongoDB client initialized successfully")
+    
+except Exception as e:
+    logger.error(f"Failed to initialize MongoDB connection: {e}")
+    logger.error("Please ensure MongoDB is running and accessible")
+    # Don't raise here, let the app start and handle connection errors gracefully
+    client = None
+    db = None
+
+# Reports directory
+REPORTS_DIR = Path("/app/reports")
 
 # Lifespan event handler
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting up PDF Reports Management System")
+    
+    # Test MongoDB connection
+    if client:
+        try:
+            # Test the connection
+            await client.admin.command('ping')
+            logger.info("Successfully connected to MongoDB")
+        except Exception as e:
+            logger.error(f"MongoDB connection test failed: {e}")
+            logger.warning("Application will continue but database features may not work")
+    else:
+        logger.warning("MongoDB client not initialized - database features will not work")
+    
+    # Check reports directory
+    if REPORTS_DIR.exists():
+        logger.info(f"Reports directory found: {REPORTS_DIR}")
+    else:
+        logger.warning(f"Reports directory not found: {REPORTS_DIR}")
+        logger.info("Creating reports directory...")
+        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    
     yield
+    
     # Shutdown
     logger.info("Shutting down PDF Reports Management System")
-    client.close()
+    if client:
+        client.close()
+        logger.info("MongoDB connection closed")
 
 # Create the main app with lifespan
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(
+    title="PDF Reports Management API",
+    description="A modern web-based PDF management system",
+    version="1.1.0",
+    lifespan=lifespan
+)
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
-
-# Reports directory
-REPORTS_DIR = Path("/app/reports")
 
 # Models
 class PDFInfo(BaseModel):
