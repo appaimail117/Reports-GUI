@@ -1,5 +1,31 @@
 # Git Repository Setup and Push Instructions
 
+## Quick Update (if repository already exists)
+
+If you already have a GitHub repository set up, use these commands to push the latest fixes:
+
+```bash
+# Navigate to your project directory
+cd C:\path\to\your\pdf-reports-system
+
+# Add all changes
+git add .
+
+# Commit the fixes
+git commit -m "Fix: Resolved environment variable KeyError and FastAPI deprecation warning
+
+- Fixed KeyError for MONGO_URL and DB_NAME environment variables
+- Added fallback defaults for missing environment variables
+- Enhanced environment file loading with error handling
+- Updated FastAPI to use modern lifespan event handlers
+- Improved logging and MongoDB connection testing
+- Added automatic reports directory creation
+- Updated documentation with troubleshooting guide"
+
+# Push to GitHub
+git push origin main
+```
+
 ## Step 1: Initialize Git Repository (if not already done)
 
 ```bash
