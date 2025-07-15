@@ -341,7 +341,9 @@ async def get_pdf(folder_name: str, filename: str):
         return FileResponse(
             path=str(pdf_path),
             media_type='application/pdf',
-            filename=filename
+            headers={
+                "Content-Disposition": f"inline; filename={filename}"
+            }
         )
         
     except Exception as e:
